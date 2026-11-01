@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALESS | Développement logiciel & solutions numériques</title>
+    <meta name="description" content="Portfolio de CALESS, Développement logiciel & solutions numériques">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="app">
+
+    <!-- Navigation (Dark) -->
+    <header class="header">
+        <nav class="navbar container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-angles-left logo-icon"></i> My Portfolio
+            </a>
+            <ul class="nav-links" :class="{ 'active': isMobileMenuOpen }">
+                <li><a href="#accueil" :class="{ active: activeSection === 'accueil' }" @click="closeMenu">Accueil</a></li>
+                <li><a href="#projets" :class="{ active: activeSection === 'projets' }" @click="closeMenu">Projets</a></li>
+                <li><a href="#competences" :class="{ active: activeSection === 'competences' }" @click="closeMenu">Compétences</a></li>
+                <li><a href="#a-propos" :class="{ active: activeSection === 'a-propos' }" @click="closeMenu">À propos</a></li>
+                <li><a href="#contact" :class="{ active: activeSection === 'contact' }" @click="closeMenu">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="./public/CV2_NKOMO_COLLARD.pdf" download="CV2_NKOMO_COLLARD.pdf" class="btn btn-outline btn-cv">Télécharger mon CV</a>
+                <div class="menu-toggle" @click="toggleMenu">
+                    <i class="fa-solid" :class="isMobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section (Dark) -->
+        <section id="accueil" class="hero container">
+            <div class="hero-content">
+                <span class="greeting"><i class="fa-solid fa-paper-plane"></i> Salut, je suis</span>
+                <h1 class="hero-title">M. NKOMO</h1>
+                <h2 class="hero-subtitle">Développement logiciel & <span class="text-primary">solutions numériques</span></h2>
+                <p class="hero-desc">Développeur et créateur de solutions digitales, je conçois des architectures
+                     robustes et des interfaces pensées pour l'utilisateur. Passionné par l'impact de la technologie, je transforme 
+                    des idées complexes en produits concrets et élégants.</p>
+                <div class="hero-buttons">
+                    <a href="https://wa.me/24174225234" class="btn btn-primary">Discutons ensemble <i class="fa-brands fa-whatsapp"></i></a>
+                    
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="bg-shape"></div>
+                <img src="./photos/photo3.jpeg" alt="Portrait de CALESS">
+            </div>
+        </section>
+
+        <!-- =========================================
+             ZONE CLAIRE (LIGHT SECTION)
+             ========================================= -->
+        <div class="light-section">
+            
+            <!-- Projets -->
+            <section id="projets" class="projects container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title text-dark">Mes projets</h2>
+                        <p class="section-subtitle">Des solutions concrètes, entre technologie, innovation et impact.</p>
+                    </div>
+                    <a href="#" class="link-arrow">Voir tous les projets <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Filtres -->
+                <div class="filters">
+                    <button 
+                        v-for="filter in filters" 
+                        :key="filter.value"
+                        class="filter-btn" 
+                        :class="{ active: currentFilter === filter.value }"
+                        @click="currentFilter = filter.value"
+                    >
+                        {{ filter.label }}
+                    </button>
+                </div>
+
+                <!-- Grille de projets -->
+                <transition-group name="project-list" tag="div" class="projects-grid">
+                    <article 
+                        v-for="project in filteredProjects" 
+                        :key="project.id" 
+                        class="project-card"
+                    >
+                        <div class="card-image">
+                            <img :src="project.image" :alt="project.title">
+                            <span class="status-badge" :class="project.statusClass">{{ project.status }}</span>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="text-dark">{{ project.title }}</h3>
+                            <p>{{ project.description }}</p>
+                            <div class="tags">
+                                <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>
+                            </div>
+                        </div>
+                    </article>
+                </transition-group>
+            </section>
+
+            <!-- Section CTA (Prêt à collaborer ?) -->
+            <section class="cta-section container">
+                <div class="cta-card">
+                    <div class="cta-content">
+                        <h2 class="text-dark">Prêt à collaborer ?</h2>
+                        <p>Je suis disponible pour un stage, une mission ou un projet innovant. Échangeons sur vos besoins !</p>
+                        <a href="https://wa.me/24174225234" class="btn btn-primary">Me contacter <i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                    <div class="cta-graphic">
+                        <!-- Simulation de la flèche graphique géante -->
+                        <i class="fa-solid fa-angles-left text-primary"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Compétences -->
+            <section id="competences" class="skills container">
+                <div class="section-header">
+                    <h2 class="section-title text-dark">Compétences</h2>
+                    <p class="section-subtitle">Un profil polyvalent axé sur la preuve et la pratique.</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <i class="fa-solid fa-code text-primary"></i>
+                        <h3 class="text-dark">Développement</h3>
+                        <p>HTML/CSS, JavaScript, Vue.js</p>
+                    </div>
+                    <div class="skill-category">
+                        <i class="fa-solid fa-cloud text-primary"></i>
+                        <h3 class="text-dark">Cloud & Réseaux</h3>
+                        <p>Virtualisation, administration système, services cloud.</p>
+                    </div>
+                    <div class="skill-category">
+                        <i class="fa-solid fa-database text-primary"></i>
+                        <h3 class="text-dark">Data & BDD</h3>
+                        <p>MySQL, MERISE, requêtes complexes, visualisation de données.</p>
+                    </div>
+                    <div class="skill-category">
+                        <i class="fa-solid fa-pen-nib text-primary"></i>
+                        <h3 class="text-dark">Design</h3>
+                        <p>Identité visuelle, branding, UI/UX, outils de création.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- À propos -->
+            <section id="a-propos" class="about container">
+                <div class="about-content">
+                    <h2 class="section-title text-dark">À propos de moi</h2>
+                    <p>Curieux, rigoureux et passionné par la technologie, 
+                        je conçois des solutions digitales qui allient
+                         robustesse technique et sens de l'expérience utilisateur.
+                    </p>
+                    <p>De l'architecture cloud au développement web, mon approche
+                           repose sur l'expérimentation, la documentation et 
+                           l'amélioration continue.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-number text-primary">5+</span>
+                            <span class="stat-label">Projets majeurs</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number text-primary">3+</span>
+                            <span class="stat-label">Domaines explorés</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number text-primary">100%</span>
+                            <span class="stat-label">Engagement</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="./photos/photo2.jpeg" alt="Espace de travail">
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section id="contact" class="contact container">
+                <div class="contact-content">
+                    <h2 class="section-title text-dark">Me contacter</h2>
+                    <p>Une question, une opportunité ou un projet ? Écrivez-moi, je vous répondrai rapidement.</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fa-solid fa-envelope text-primary"></i>
+                            <span>calinesdras@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-brands fa-whatsapp text-primary"></i>
+                            <span>+241 74 22 52 34</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-location-dot text-primary"></i>
+                            <span>Libreville, Gabon</span>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <form @submit.prevent="submitForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name" class="text-dark">Nom complet</label>
+                            <input type="text" id="name" name="name" v-model="form.name" required placeholder="Votre nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="text-dark">Email</label>
+                            <input type="email" id="email" name="email" v-model="form.email" required placeholder="votre@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="text-dark">Message</label>
+                            <textarea id="message" name="message" v-model="form.message" rows="5" required placeholder="Votre message..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" :disabled="isSubmitting">
+                            {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer le message' }} 
+                            <i class="fa-solid fa-paper-plane" v-if="!isSubmitting"></i>
+                        </button>
+                        <div v-if="formStatus.message" class="form-status" :class="formStatus.type">
+                            {{ formStatus.message }}
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer (Dark) -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo"><i class="fa-solid fa-angles-left logo-icon"></i> My Portfolio</a>
+                <p>Développement logiciel & solutions numériques</p>
+            </div>
+            <div class="footer-social">
+                <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Merci pour votre attention !</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="vue-app.js"></script>
+</body>
+</html>
