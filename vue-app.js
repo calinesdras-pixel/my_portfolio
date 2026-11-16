@@ -54,10 +54,11 @@ createApp({
                 title: 'EcoShield Gabon',
                 description: 'Dashboard de surveillance environnementale interactive pour le Gabon.',
                 category: ['dev', 'data'],
-                status: 'En cours',
-                statusClass: 'status-wip',
-                image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop',
-                tags: ['Web', 'Open Data', 'Data Viz']
+                status: 'Terminé',
+                statusClass: 'status-done',
+                image: './photos/EcoShield _ Sentinelle de la forêt_format.png',
+                tags: ['Web', 'Open Data', 'Data Viz'],
+                link: 'https://calinesdras-pixel.github.io/EcoShield_v1/'
             },
             {
                 id: 2,

@@ -103,6 +103,13 @@
                             <div class="tags">
                                 <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>
                             </div>
+                            <a v-if="project.link"
+                                :href="project.link"
+                                target="_blank"
+                                rel="noopener"
+                                class="link-arrow">
+                                    Voir le projet <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
                         </div>
                     </article>
                 </transition-group>
